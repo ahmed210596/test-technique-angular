@@ -6,8 +6,143 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-NtPr29n5rQcLwB6a27X0NOFQ/JzKN5fYfQxY9eFv72mWb8HZOdMpgL15RGmBdOk6MYsHmX+ntsfmZ1QMa0L+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+   body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+</style>
 </head>
+
 <body>
   <app-root></app-root>
+
+
+  <!-- <script>
+    // Sample data for demonstration
+    let users = [];
+
+    // Fetching data from an API endpoint
+    fetch('https://retoolapi.dev/HYd96h/data')
+      .then(response => response.json())
+      .then(data => {
+        users = data; // Assuming data is an array of user objects
+        console.log(users); // Optional: Log the users array to verify
+        displayUsers(); // Call function to display users after fetching data
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+
+    let currentPage = 1;
+    let itemsPerPage = 10;
+    let currentSortField = '';
+    let isSortAscending = true;
+
+    // Function to display users in the table
+    function displayUsers() {
+      const userTableBody = document.getElementById('userTableBody');
+      userTableBody.innerHTML = ''; // Clear existing table rows
+
+      // Apply sorting if a sort field is selected
+      if (currentSortField) {
+        sortUsers(currentSortField, isSortAscending);
+      }
+
+      // Calculate the range of users to display based on current page and items per page
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const paginatedUsers = users.slice(start, end); // Get users for the current page
+
+      // Build HTML rows for each user
+      paginatedUsers.forEach(user => {
+        const row = `
+          <tr>
+            <td><img src="${user.imageUrl || 'https://via.placeholder.com/150'}" alt="${user.firstName} ${user.lastName}" style="width: 50px; height: 50px;"></td>
+            <td>${user.firstName} ${user.lastName}</td>
+            <td>${user.email}</td>
+            <td>${user.age}</td>
+            <td>$${user.salary}</td>
+            <td>${user.address}</td>
+            <td>${user.contactNumber}</td>
+            <td><a href="#" class="btn btn-primary btn-sm">View Profile</a></td>
+          </tr>
+        `;
+        userTableBody.innerHTML += row; // Append row to table body
+      });
+
+      displayPagination(); // Update pagination links based on current state
+    }
+
+    // Function to display pagination links
+    function displayPagination() {
+      const pagination = document.getElementById('pagination');
+      pagination.innerHTML = ''; // Clear existing pagination links
+
+      // Calculate total number of pages needed based on total users and items per page
+      const totalPages = Math.ceil(users.length / itemsPerPage);
+
+      // Generate pagination links
+      for (let i = 1; i <= totalPages; i++) {
+        const pageItem = document.createElement('li');
+        pageItem.className = `page-item ${i === currentPage ? 'active' : ''}`;
+        pageItem.innerHTML = `<a class="page-link" href="#" onclick="gotoPage(${i})">${i}</a>`;
+        pagination.appendChild(pageItem); // Append page link to pagination container
+      }
+    }
+
+    // Function to navigate to a specific page
+    function gotoPage(page) {
+      currentPage = page; // Update current page
+      displayUsers(); // Re-display users based on new page
+    }
+
+    // Function to change items per page
+    function changeItemsPerPage(value) {
+      itemsPerPage = parseInt(value, 10); // Convert value to integer
+      currentPage = 1; // Reset to first page when items per page changes
+      displayUsers(); // Re-display users based on new items per page
+    }
+
+    // Function to handle sorting of users
+    function sortUsers(field, ascending) {
+      users.sort((a, b) => {
+        let comparison = 0;
+        if (a[field] > b[field]) {
+          comparison = 1;
+        } else if (a[field] < b[field]) {
+          comparison = -1;
+        }
+        return ascending ? comparison : comparison * -1;
+      });
+      currentSortField = field;
+      isSortAscending = ascending;
+    }
+
+    // Function to handle column header click for sorting
+    function handleSort(field) {
+      if (field === currentSortField) {
+        isSortAscending = !isSortAscending;
+      } else {
+        currentSortField = field;
+        isSortAscending = true;
+      }
+      displayUsers();
+    }
+
+    // Initial display of users
+    displayUsers();
+  </script> -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

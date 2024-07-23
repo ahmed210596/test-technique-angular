@@ -1,0 +1,81 @@
+<div class="container">
+  <h2>User List</h2>
+  <button class="btn btn-primary" (click)="openModal()">Add User</button>
+  <app-add-user-modal (addUser)="onAddUser($event)" *ngIf="showModal" (closeModal)="closeModal()"></app-add-user-modal>
+  
+  <!-- Filter input -->
+  <div>
+      <label>Filter:</label>
+      <input type="text" id="filterInput" [(ngModel)]="filterTerm" (keyup)="applyFilter()">
+      <button class="btn btn-primary" (click)="clearFilter()">Clear Filter</button>
+  </div>
+
+  <!-- Items per page selection -->
+  <div>
+      <label>Items per page:</label>
+      <select [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage($event)">
+          <option *ngFor="let option of itemsPerPageOptions" [value]="option">{{ option }}</option>
+      </select>
+  </div>
+
+  <!-- User table with sorting -->
+  <table class="table table-striped">
+      <thead>
+          <tr>
+              <th (click)="handleSort('id')" [ngClass]="{'sorted': sortBy === 'id', 'asc': sortBy === 'id' && !sortReverse, 'desc': sortBy === 'id' && sortReverse}">
+                  ID <span class="arrow" *ngIf="sortBy === 'id'" [ngClass]="{'asc': !sortReverse, 'desc': sortReverse}"></span>
+              </th>
+              <th (click)="handleSort('firstName')" [ngClass]="{'sorted': sortBy === 'firstName', 'asc': sortBy === 'firstName' && !sortReverse, 'desc': sortBy === 'firstName' && sortReverse}">
+                  First Name <span class="arrow" *ngIf="sortBy === 'firstName'" [ngClass]="{'asc': !sortReverse, 'desc': sortReverse}"></span>
+              </th>
+              <th (click)="handleSort('lastName')" [ngClass]="{'sorted': sortBy === 'lastName', 'asc': sortBy === 'lastName' && !sortReverse, 'desc': sortBy === 'lastName' && sortReverse}">
+                  Last Name <span class="arrow" *ngIf="sortBy === 'lastName'" [ngClass]="{'asc': !sortReverse, 'desc': sortReverse}"></span>
+              </th>
+              <th (click)="handleSort('email')" [ngClass]="{'sorted': sortBy === 'email', 'asc': sortBy === 'email' && !sortReverse, 'desc': sortBy === 'email' && sortReverse}">
+                  Email <span class="arrow" *ngIf="sortBy === 'email'" [ngClass]="{'asc': !sortReverse, 'desc': sortReverse}"></span>
+              </th>
+              <th (click)="handleSort('age')" [ngClass]="{'sorted': sortBy === 'age', 'asc': sortBy === 'age' && !sortReverse, 'desc': sortBy === 'age' && sortReverse}">
+                  Age <span class="arrow" *ngIf="sortBy === 'age'" [ngClass]="{'asc': !sortReverse, 'desc': sortReverse}"></span>
+              </th>
+              <th (click)="handleSort('salary')" [ngClass]="{'sorted': sortBy === 'salary', 'asc': sortBy === 'salary' && !sortReverse, 'desc': sortBy === 'salary' && sortReverse}">
+                  Salary <span class="arrow" *ngIf="sortBy === 'salary'" [ngClass]="{'asc': !sortReverse, 'desc': sortReverse}"></span>
+              </th>
+              <th (click)="handleSort('address')" [ngClass]="{'sorted': sortBy === 'address', 'asc': sortBy === 'address' && !sortReverse, 'desc': sortBy === 'address' && sortReverse}">
+                  Address <span class="arrow" *ngIf="sortBy === 'address'" [ngClass]="{'asc': !sortReverse, 'desc': sortReverse}"></span>
+              </th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let user of usersPerPage">
+              <td data-label="ID">{{ user.id }}</td>
+              <td data-label="First Name">{{ user.firstName }}</td>
+              <td data-label="Last Name">{{ user.lastName }}</td>
+              <td data-label="Email">{{ user.email }}</td>
+              <td data-label="Age">{{ user.age }}</td>
+              <td data-label="Salary">{{ user.salary }}</td>
+              <td data-label="Address">{{ user.address }}</td>
+              <td data-label="Actions"><button class="btn btn-danger" (click)="deleteUser(user)">Delete</button></td>
+          </tr>
+      </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div>
+      <ul class="pagination">
+          <li class="page-item" [ngClass]="{ 'disabled': currentPage === 1 }">
+              <a class="page-link" (click)="gotoPage(currentPage - 1)" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+              </a>
+          </li>
+          <li class="page-item" *ngFor="let page of totalPages" [ngClass]="{ 'active': currentPage === page }">
+              <a class="page-link" (click)="gotoPage(page)">{{ page }}</a>
+          </li>
+          <li class="page-item" [ngClass]="{ 'disabled': currentPage === totalPages.length }">
+              <a class="page-link" (click)="gotoPage(currentPage + 1)" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+              </a>
+          </li>
+      </ul>
+  </div>
+</div>
